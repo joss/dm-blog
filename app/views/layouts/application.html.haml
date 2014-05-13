@@ -1,0 +1,92 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{ charset: "utf-8" }/
+    %meta{ content: "IE=edge", "http-equiv" => "X-UA-Compatible" }/
+    %meta{ content: "width=device-width, initial-scale=1", name: "viewport" }/
+    %meta{ content: "Blog for test", name: "description" }/
+    %meta{ content: "DM", name: "author" }/
+    %title DM Blog
+
+    = stylesheet_link_tag :application, media: :all
+    = csrf_meta_tags
+
+    /[if lt IE 9 ]
+      %script{ src: "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" }
+      %script{ src: "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js" }
+
+  %body
+    .blog-masthead
+      .container
+        %nav.blog-nav
+          %a.blog-nav-item.active{href: "#"} Home
+          %a.blog-nav-item{href: "#"} New features
+          %a.blog-nav-item{href: "#"} Press
+          %a.blog-nav-item{href: "#"} New hires
+          %a.blog-nav-item{href: "#"} About
+    .container
+      .blog-header
+        %h1.blog-title DM Blog
+        %p.lead.blog-description Blog for test
+      .row
+        .col-sm-8.blog-main
+          = yield
+        .col-sm-3.col-sm-offset-1.blog-sidebar
+          .sidebar-module.sidebar-module-inset
+            %h4 About
+            %p
+              Etiam porta
+              %em sem malesuada magna
+              mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
+          .sidebar-module
+            %h4 Archives
+            %ol.list-unstyled
+              %li
+                %a{href: "#"} January 2014
+              %li
+                %a{href: "#"} December 2013
+              %li
+                %a{href: "#"} November 2013
+              %li
+                %a{href: "#"} October 2013
+              %li
+                %a{href: "#"} September 2013
+              %li
+                %a{href: "#"} August 2013
+              %li
+                %a{href: "#"} July 2013
+              %li
+                %a{href: "#"} June 2013
+              %li
+                %a{href: "#"} May 2013
+              %li
+                %a{href: "#"} April 2013
+              %li
+                %a{href: "#"} March 2013
+              %li
+                %a{href: "#"} February 2013
+          .sidebar-module
+            %h4 Elsewhere
+            %ol.list-unstyled
+              %li
+                %a{href: "#"} GitHub
+              %li
+                %a{href: "#"} Twitter
+              %li
+                %a{href: "#"} Facebook
+        / /.blog-sidebar
+      / /.row
+    / /.container
+    .blog-footer
+      %p
+        Blog template built for
+        %a{href: "http://getbootstrap.com"} Bootstrap
+        by
+        = succeed "." do
+          %a{href: "https://twitter.com/mdo"} @mdo
+      %p
+        %a{href: "#"} Back to top
+
+    = javascript_include_tag :application
+
+
