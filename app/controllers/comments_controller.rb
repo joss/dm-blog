@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class CommentsController < ApplicationController
   before_filter :find_post, only: [:create, :destroy]
 
