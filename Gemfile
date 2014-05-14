@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 
 gem 'bootstrap-sass', '~> 3.1.1'
+gem 'rails_admin'
 
 group :development do
   gem 'pry-rails'
