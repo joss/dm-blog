@@ -1,6 +1,6 @@
-window.posts = class posts
+window.app = class app
   constructor: ->
-    @list = ko.observableArray([
+    @posts = ko.observableArray([
       { title: 'asdasd', description: 'ddddddd' },
       { title: 'asdasd2', description: 'ddddddd2' },
       ])

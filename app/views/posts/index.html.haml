@@ -1,7 +1,8 @@
-%div{ "data-bind" => "template: {name:'todoTemplate', foreach: posts.list2}" }
-
-%script#todoTemplate{:type => "text/x-jquery-tmpl"}
-  %div
-    asdasd
-    %input{:"data-bind" => "attr: { 'id'  : id }, checked: done ", :type => "checkbox"}/
-    %label{:"data-bind" => "attr: { 'for' : id }, html: name, css: {'done-true':done}"}
+%div{ data: { bind: "foreach: posts" } }
+  .blog-post
+    %h2.blog-post-title{ data: { bind: "text: title" } }
+    %p.blog-post-meta
+      January 1, 2014 by
+      %a{href: "#"} Mark
+    %hr/
+    %span{ data: { bind: "text: description" } }
