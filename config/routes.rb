@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :posts, only: [:show, :index] do
     resources :comments, only: [:create, :destroy]
   end
+
+  get :parse_remote_post, to: 'comments#parse_remote_post', as: :parse_remote_post
 end

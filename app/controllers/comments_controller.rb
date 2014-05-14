@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :find_post
+  before_filter :find_post, only: [:create, :destroy]
 
   def create
     @comment = @post.comments.new(comment_params)
@@ -19,6 +19,31 @@ class CommentsController < ApplicationController
   def destroy
     @post.comments.find(params[:id]).destroy
     head :ok
+  end
+
+  def parse_remote_post
+    #TODO: introduce to lib
+    begin
+      uri = URI.parse(params[:url])
+      doc = Nokogiri::HTML(open(uri))
+
+      url_base = uri.to_s.gsub(uri.path, '')
+
+      images = doc.css('img').map do |el|
+        image_path = el.attribute('src').text
+        URI.parse(image_path).scheme ? image_path : [url_base, image_path].join
+      end
+
+      remote_post_preview_html = render_to_string(
+        partial: 'comments/remote_post_preview',
+        locals: { title: doc.title, description: doc.css('h1').text, image_src: images.first, source_url: params[:url] }
+      )
+
+      render json: { remote_post_preview_html: remote_post_preview_html, images: images }
+    rescue Exception => e
+      p e
+      render json: { status: :error }
+    end
   end
 
   private
