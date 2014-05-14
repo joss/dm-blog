@@ -5,5 +5,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @all_comments = @post.comments.reject(&:new_record?)
+    @new_comment = @post.comments.build
   end
 end

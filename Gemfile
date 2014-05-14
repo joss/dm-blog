@@ -11,6 +11,7 @@ gem 'haml-rails'
 
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'rails_admin'
+gem 'faker'
 
 group :development do
   gem 'pry-rails'
@@ -25,6 +26,5 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'whiny_validation'
-  gem 'faker'
   gem 'database_cleaner'
 end

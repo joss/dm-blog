@@ -9,3 +9,9 @@
     = link_to @post.username, '#'
   %hr/
   != @post.body
+
+#new-comment
+  = render 'comments/new', { post: @post, new_comment: @new_comment }
+
+#comments
+  = render @all_comments

@@ -1,0 +1,6 @@
+.blog-comment
+  - data_opts = { url: url_for([@post, comment]), method: :delete, remote: true, confirm: "Sure?" }
+  %button.close.remove-comment{ type: :button, :"aria-hidden" => true, data: data_opts } &times;
+  .body= comment.body
+  .when= comment.updated_at.to_s(:short)
+  %hr
