@@ -1,0 +1,11 @@
+= link_to 'All posts', root_path
+
+.blog-post
+  %h2.blog-post-title
+    = @post.title
+  %p.blog-post-meta
+    = @post.updated_at.to_s(:short)
+    by
+    = link_to @post.username, '#'
+  %hr/
+  = @post.body
