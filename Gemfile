@@ -19,3 +19,14 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
 end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'whiny_validation'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'faker'
+end
