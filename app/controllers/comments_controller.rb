@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
         locals: { remote_post: remote_post, images: images }
       )
 
-      render json: { remote_post_preview_html: remote_post_preview_html, remote_post: remote_post.attributes.slice(*%w(title h1 source)) }
+      render json: { remote_post_preview_html: remote_post_preview_html, remote_post: remote_post.attributes.slice(*%w(title h1 source logo_url)) }
     rescue Exception => e
       p e
       render json: { status: :error }
