@@ -1,6 +1,6 @@
 .remote-page.clearfix
   .pull-left.col-lg-6
-    %img{ src: image_src }
+    %img{ src: images.first, data: { images: images, current_idx: 0 } }
   .pull-right.col-lg-6
     %button.close.remove-preview{ type: :button, :"aria-hidden" => true } &times;
     .title= link_to title, source_url, target: :"_blank"

@@ -10,6 +10,8 @@ $ ->
     $(@).closest('.blog-comment').remove()
 
   $(@).on 'click', '.remote-page .remove-preview', -> $(@).closest('.remote-page').remove()
+  $(@).on 'click', '.remote-page img', imageCarousel
+
 
   initializeCommentBodyInput()
 
@@ -27,6 +29,13 @@ delayedJob = (->
     timer = setTimeout(callback, ms)
     return
 )()
+
+imageCarousel = ->
+  currentIdx = $(@).data('currentIdx')
+  images = $(@).data('images')
+  nextIdx = if currentIdx + 1 < images.length then currentIdx + 1 else 0
+  $(@).attr('src', images[nextIdx])
+  $(@).data('currentIdx', nextIdx)
 
 initializeCommentBodyInput = ->
   lastCommentValue = ''

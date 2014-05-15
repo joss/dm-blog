@@ -38,10 +38,10 @@ class CommentsController < ApplicationController
 
       remote_post_preview_html = render_to_string(
         partial: 'comments/remote_post_preview',
-        locals: { title: doc.title, description: doc.css('h1').text, image_src: images.first, source_url: params[:url] }
+        locals: { title: doc.title, description: doc.css('h1').text, images: images, source_url: params[:url] }
       )
 
-      render json: { remote_post_preview_html: remote_post_preview_html, images: images }
+      render json: { remote_post_preview_html: remote_post_preview_html }
     rescue Exception => e
       p e
       render json: { status: :error }
