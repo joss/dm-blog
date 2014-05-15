@@ -9,9 +9,11 @@ $ ->
   $(@).on "ajax:complete", "button.remove-comment", (event, xhr, status) ->
     $(@).closest('.blog-comment').remove()
 
-  $(@).on 'click', '.remote-page .remove-preview', -> $(@).closest('.remote-page').remove()
-  $(@).on 'click', '.remote-page img', imageCarousel
+  $(@).on 'click', '.remote-page .remove-preview', ->
+    $(@).closest('.remote-page').remove()
+    $('input#comment_remote_post_attributes_title').val('')
 
+  $(@).on 'click', '.remote-page img', imageCarousel
 
   initializeCommentBodyInput()
 
@@ -35,6 +37,7 @@ imageCarousel = ->
   images = $(@).data('images')
   nextIdx = if currentIdx + 1 < images.length then currentIdx + 1 else 0
   $(@).attr('src', images[nextIdx])
+  $('input#comment_remote_post_attributes_logo_url').val(images[nextIdx])
   $(@).data('currentIdx', nextIdx)
 
 initializeCommentBodyInput = ->
@@ -49,6 +52,8 @@ initializeCommentBodyInput = ->
         url = $input.val().getUrl()
         if url
           $.get($input.data('parseRemotePostPath'), { url: url }, (data) ->
-            $('#previews').html(data.remote_post_preview_html) unless data.error
+            unless data.error
+              $('#previews').html(data.remote_post_preview_html)
+              _.each data.remote_post, (v, k) -> $("input[name='comment[remote_post_attributes][#{k}]']").val(v)
           )
       ), 500)

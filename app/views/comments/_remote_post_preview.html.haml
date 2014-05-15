@@ -3,5 +3,5 @@
     %img{ src: images.first, data: { images: images, current_idx: 0 } }
   .pull-right.col-lg-6
     %button.close.remove-preview{ type: :button, :"aria-hidden" => true } &times;
-    .title= link_to title, source_url, target: :"_blank"
-    .description= description
+    .title= link_to remote_post.title, remote_post.source, target: :"_blank"
+    .description= remote_post.h1

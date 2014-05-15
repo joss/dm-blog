@@ -3,4 +3,11 @@
   %button.close.remove-comment{ type: :button, :"aria-hidden" => true, data: data_opts } &times;
   .body= comment.body
   .when= comment.updated_at.to_s(:short)
+  - if comment.remote_post
+    .remote-page.clearfix
+      .pull-left.col-lg-6
+        %img{ src: comment.remote_post.logo_url }
+      .pull-right.col-lg-6
+        .title= link_to comment.remote_post.title, comment.remote_post.source, target: :"_blank"
+        .description= comment.remote_post.h1
   %hr
