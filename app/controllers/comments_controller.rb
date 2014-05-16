@@ -8,7 +8,6 @@ class CommentsController < ApplicationController
 
     json_response = if @comment.save
       @new_comment = @post.comments.new
-      @new_comment.build_remote_post
       { new_comment_html: render_to_string(@comment) }
     else
       @new_comment = @comment
@@ -45,7 +44,7 @@ class CommentsController < ApplicationController
         locals: { remote_post: remote_post, images: images }
       )
 
-      render json: { remote_post_preview_html: remote_post_preview_html, remote_post: remote_post.attributes.slice(*%w(title h1 source logo_url)) }
+      render json: { remote_post_preview_html: remote_post_preview_html }
     rescue Exception => e
       p e
       render json: { status: :error }
@@ -58,6 +57,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:body, remote_post_attributes: [:title, :source, :h1, :logo_url])
+      params.require(:comment).permit(:body, remote_posts_attributes: [:title, :source, :h1, :logo_url])
     end
 end

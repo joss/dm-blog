@@ -1,6 +1,6 @@
-.row
-  .col-lg-12{ class: new_comment.errors.any? ? 'has-error' : '' }
-    = form_for [post, new_comment], html: { role: :form }, data: { remote: true } do |f|
+= form_for [post, new_comment], html: { role: :form }, data: { remote: true } do |f|
+  .row
+    .col-lg-12{ class: new_comment.errors.any? ? 'has-error' : '' }
       %label{ class: :"control-label", for: :comment_body }
         = new_comment.errors[:body].join(', ') if new_comment.errors[:body].any?
       .input-group
@@ -13,10 +13,4 @@
           %ul.dropdown-menu.pull-right{ role: :menu }
             %li= link_to 'Attach image', '#'
 
-      = f.fields_for :remote_post do |rpf|
-        = rpf.hidden_field :source
-        = rpf.hidden_field :title
-        = rpf.hidden_field :h1
-        = rpf.hidden_field :logo_url
-
-  .col-lg-12#previews
+    .col-lg-12#previews

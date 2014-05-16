@@ -1,7 +1,13 @@
 .remote-page.clearfix
   .pull-left.col-lg-6
-    %img{ src: images.first, data: { images: images, current_idx: 0 } }
+    %img{ src: remote_post.logo_url, data: { images: images, current_idx: 0 } }
   .pull-right.col-lg-6
     %button.close.remove-preview{ type: :button, :"aria-hidden" => true } &times;
     .title= link_to remote_post.title, remote_post.source, target: :"_blank"
     .description= remote_post.h1
+
+  - uniq_identifier = Time.current.to_i
+  = hidden_field_tag "comment[remote_posts_attributes][#{uniq_identifier}][#{:source}]", remote_post.source
+  = hidden_field_tag "comment[remote_posts_attributes][#{uniq_identifier}][#{:title}]", remote_post.title
+  = hidden_field_tag "comment[remote_posts_attributes][#{uniq_identifier}][#{:h1}]", remote_post.h1
+  = hidden_field_tag "comment[remote_posts_attributes][#{uniq_identifier}][#{:logo_url}]", remote_post.logo_url, id: :"logo-url-field"

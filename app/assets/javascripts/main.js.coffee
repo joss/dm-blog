@@ -37,7 +37,7 @@ imageCarousel = ->
   images = $(@).data('images')
   nextIdx = if currentIdx + 1 < images.length then currentIdx + 1 else 0
   $(@).attr('src', images[nextIdx])
-  $('input#comment_remote_post_attributes_logo_url').val(images[nextIdx])
+  $(@).closest('.remote-page').find('#logo-url-field').val(images[nextIdx])
   $(@).data('currentIdx', nextIdx)
 
 initializeCommentBodyInput = ->
@@ -52,8 +52,6 @@ initializeCommentBodyInput = ->
         url = $(input_selector).val().getUrl()
         if url
           $.get($(input_selector).data('parseRemotePostPath'), { url: url }, (data) ->
-            unless data.error
-              $('#previews').html(data.remote_post_preview_html)
-              _.each data.remote_post, (v, k) -> $("input[name='comment[remote_post_attributes][#{k}]']").val(v)
+            $('#previews').append(data.remote_post_preview_html) unless data.error
           )
       ), 500)
