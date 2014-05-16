@@ -11,6 +11,7 @@ gem 'haml-rails'
 
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'rails_admin'
+gem 'carrierwave'
 gem 'faker'
 
 group :development do
