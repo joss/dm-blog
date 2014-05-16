@@ -42,16 +42,16 @@ imageCarousel = ->
 
 initializeCommentBodyInput = ->
   lastCommentValue = ''
-  $input = $("#comment_body")
+  input_selector = "#comment_body"
 
-  $input.on 'change keyup paste', (event)->
-    if $input.val() != lastCommentValue
-      lastCommentValue = $input.val()
+  $(document).on 'change keyup paste', input_selector, (event)->
+    if $(input_selector).val() != lastCommentValue
+      lastCommentValue = $(input_selector).val()
 
       delayedJob((->
-        url = $input.val().getUrl()
+        url = $(input_selector).val().getUrl()
         if url
-          $.get($input.data('parseRemotePostPath'), { url: url }, (data) ->
+          $.get($(input_selector).data('parseRemotePostPath'), { url: url }, (data) ->
             unless data.error
               $('#previews').html(data.remote_post_preview_html)
               _.each data.remote_post, (v, k) -> $("input[name='comment[remote_post_attributes][#{k}]']").val(v)

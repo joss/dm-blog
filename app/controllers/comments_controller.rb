@@ -33,8 +33,9 @@ class CommentsController < ApplicationController
       url_base = uri.to_s.gsub(uri.path, '')
 
       images = doc.css('img').map do |el|
-        image_path = el.attribute('src').text
-        URI.parse(image_path).scheme ? image_path : [url_base, image_path].join
+        image_path = el.attribute('src').try(:text).to_s
+        delimeter = image_path.starts_with?('/') ? '' : '/'
+        URI.parse(image_path).scheme ? image_path : [url_base, delimeter, image_path].join
       end
 
       remote_post = RemotePost.new(title: doc.title, h1: doc.css('h1').text, source: params[:url], logo_url: images.first)
