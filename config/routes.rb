@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   end
 
   get :parse_remote_post, to: 'comments#parse_remote_post', as: :parse_remote_post
+  post :image_upload, to: 'comments#image_upload', as: :image_upload
 end

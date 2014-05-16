@@ -10,4 +10,8 @@
       .pull-right.col-lg-6
         .title= link_to rp.title, rp.source, target: :"_blank"
         .description= rp.h1
+  - if comment.comment_images.any?
+    .comment-image.clearfix
+      - comment.comment_images.each do |image|
+        %img.pull-left{ src: image.image.url }
   %hr

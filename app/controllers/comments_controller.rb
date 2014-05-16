@@ -51,12 +51,22 @@ class CommentsController < ApplicationController
     end
   end
 
+  def image_upload
+    comment_images = []
+
+    Array.wrap(params[:files]).each do |image_file|
+      comment_images << CommentImage.create(image: image_file)
+    end
+
+    render json: { files: comment_images }
+  end
+
   private
     def find_post
       @post = Post.find(params[:post_id])
     end
 
     def comment_params
-      params.require(:comment).permit(:body, remote_posts_attributes: [:title, :source, :h1, :logo_url])
+      params.require(:comment).permit(:body, comment_image_ids: [], remote_posts_attributes: [:title, :source, :h1, :logo_url])
     end
 end

@@ -2,6 +2,7 @@ $ ->
   $(@).on "ajax:success", "#new-comment form", (event, data, status, xhr) ->
     $('#new-comment').html(data.new_form_html)
     $('#comments').prepend(data.new_comment_html) if data.new_comment_html
+    initializeFileupload()
 
   $(@).on "ajax:error", "#new-comment form", (event, xhr, status, error) ->
     console.log 'error'
@@ -16,7 +17,7 @@ $ ->
   $(@).on 'click', '.remote-page img', imageCarousel
 
   initializeCommentBodyInput()
-
+  initializeFileupload()
 
 # Core extension
 String.prototype.getUrl = ->
@@ -55,3 +56,25 @@ initializeCommentBodyInput = ->
             $('#previews').append(data.remote_post_preview_html) unless data.error
           )
       ), 500)
+
+initializeFileupload = ->
+  $('#fileupload').fileupload(
+    previewMaxWidth: 200,
+    previewMaxHeight: 200,
+    dataType: 'json',
+    done: (e, data) ->
+      $.each data.result.files, (index, file) ->
+        $("#comment_image_ids").append($("<input type='hidden' name='comment[comment_image_ids][]'/>").val(file.id))
+  ).on('fileuploadadd', (e, data) ->
+    data.context = $('<div/>').appendTo('#files')
+    $.each data.files, (index, file) ->
+      node = $('<p/>').append($('<span/>').text(file.name))
+      node.append('<br>')
+
+      node.appendTo(data.context)
+  ).on('fileuploadprocessalways', (e, data) ->
+    index = data.index
+    file = data.files[index]
+    node = $(data.context.children()[index])
+    node.prepend('<br>').prepend(file.preview) if file.preview
+  )
