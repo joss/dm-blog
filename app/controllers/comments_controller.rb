@@ -34,8 +34,11 @@ class CommentsController < ApplicationController
       images = doc.css('img').map do |el|
         image_path = el.attribute('src').try(:text).to_s
         delimeter = image_path.starts_with?('/') ? '' : '/'
-        URI.parse(image_path).scheme ? image_path : [url_base, delimeter, image_path].join
-      end
+        result = (image_path =~ /^#{URI::regexp(%w(http https))}$/) ? image_path : [url_base, delimeter, image_path].join
+        _remote_file_exists?(result) ? result : nil
+      end.compact
+
+      images = ['/assets/no_preview.jpg'] if images.blank?
 
       remote_post = RemotePost.new(title: doc.title, h1: doc.css('h1').text, source: params[:url], logo_url: images.first)
 
@@ -68,5 +71,18 @@ class CommentsController < ApplicationController
 
     def comment_params
       params.require(:comment).permit(:body, comment_image_ids: [], remote_posts_attributes: [:title, :source, :h1, :logo_url])
+    end
+
+    def _remote_file_exists?(url)
+      p url
+      begin
+        uri = URI.parse(url)
+        Net::HTTP.start(uri.host, uri.port) do |http|
+          return http.head(uri.request_uri)['Content-Type'].start_with? 'image'
+        end
+      rescue Exception => e
+        p e
+        false
+      end
     end
 end
